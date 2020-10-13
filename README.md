@@ -1,6 +1,6 @@
 # LenguajesProyecto
-nicole carrillo
-luis eduardo nuñez
-kim hyuntae
-luis garcia
-mayra guajardo
+Nicole Carrillo
+Luis Eduardo Núñez
+Kim Hyuntae
+Luis García
+Mayra Guajardo
