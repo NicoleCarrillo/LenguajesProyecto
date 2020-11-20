@@ -47,6 +47,7 @@ public class Producer extends Thread {
         	int arreglo[]=objetoScheme.getRandomNumbers();
         	String operacionRandom = objetoScheme.getRandomOperation();
         	String formatOperation = objetoScheme.getFormatOperation(arreglo,operacionRandom);
+        	objetoScheme.setOperation(formatOperation);
         	
         	//PASAR formatOperation AL BUFFER 
         	
