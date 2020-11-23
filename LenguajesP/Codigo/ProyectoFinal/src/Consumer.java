@@ -1,9 +1,10 @@
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Consumer extends Thread {
+
     Buffer buffer;
+    boolean ejecucion = true;
     
     Consumer(Buffer buffer) {
         this.buffer = buffer;
@@ -12,18 +13,30 @@ public class Consumer extends Thread {
     @Override
     public void run() {
         System.out.println("Running Consumer...");
-        char product;
+        Operations product;
         
-        for(int i=0 ; i<5 ; i++) {
+        while(this.ejecucion) {
             product = this.buffer.consume();
-            //System.out.println("Consumer consumed: " + product);
-            Buffer.print("Consumer consumed: " + product);
-            
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
+
+            if(product != null){
+                Operations.resultOperation(product);
+                Buffer.print("Consumer Consumed ID -> " + product.getID() + " Result -> " + product.getResult());
+                GUIFrame.tableDone(product.getID(), product.getOperation(), product.getResult());
+            }
+            else{
+
+                try {
+                    Thread.sleep(this.buffer.time);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                stopThread();
             }
         }
+    }
+    
+    public void stopThread(){
+        this.ejecucion = false;
     }
 }
