@@ -45,6 +45,7 @@ public class GUIFrame extends javax.swing.JFrame {
         initComponents();
     }
 
+	//ELIMINA LAS TAREAS DE LA TABLA DE LA GUI 
     public static void removeTasks(String exp){
         DefaultTableModel table1 =  (DefaultTableModel) GUIFrame.jTable1.getModel();  
          for(int i=table1.getRowCount()-1;i>=0;i--){
@@ -55,6 +56,7 @@ public class GUIFrame extends javax.swing.JFrame {
         }
     }
     
+	//TABLA DE LAS TAREAS POR HACER 	
     public static void nextTable(int id, String exp){
         DefaultTableModel table1 = (DefaultTableModel) GUIFrame.jTable1.getModel();
         Object row [] = new Object [2];
@@ -63,7 +65,8 @@ public class GUIFrame extends javax.swing.JFrame {
         table1.addRow(row);
         
     }
-
+	
+	//TABLA DE LOS RESULTADOS 
     public static void tableComplete(int id, String exp, double value){
         DefaultTableModel table2 =  (DefaultTableModel) GUIFrame.jTable2.getModel();
         Object row[] = new Object[3];
@@ -74,6 +77,7 @@ public class GUIFrame extends javax.swing.JFrame {
         
     }
    
+	//METODO QUE INICIALIZA TODOS LOS COMPONENTES 
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -106,7 +110,7 @@ public class GUIFrame extends javax.swing.JFrame {
         jButton1.setText(" INICIAR");
         jButton2.setText("TERMINAR");
         
-        //Button stop
+        //BUTTON STOP -> REINICIA TODOS LOS VALORES 
         jButton2.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
@@ -122,10 +126,12 @@ public class GUIFrame extends javax.swing.JFrame {
         	}
     	});
         
-        //Button init
+        //BUTTON INIT -> JALA TODOS LOS VALORES DE LA GUI 
         jButton1.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
+			
+			//VALIDACIONES
         		
         		totalProductor = (Integer)jSpinner1.getValue();
         		if(totalProductor <= 0 || totalProductor > 10){
@@ -209,6 +215,7 @@ public class GUIFrame extends javax.swing.JFrame {
         		System.out.println(rangoMenor);
         		System.out.println(rangoMayor);
         		
+			// INICIALIZA EL PRODUCTOR-CONSUMIDOR -> ORQUESTADOR DEL PROYECTO 
         		objeto = new PC(totalProductor, totalConsumidor);
         		objeto.initProcess(tamBuffer, 1000, rangoMenor, rangoMayor, jProgressBar1, jSpinner4);
                 
@@ -219,6 +226,8 @@ public class GUIFrame extends javax.swing.JFrame {
         	} 
         });
 
+	    
+	    //METODOS PROPORCIONADOS POR EL PROFE
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
