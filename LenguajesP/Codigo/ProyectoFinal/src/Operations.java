@@ -2,6 +2,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Random;
 
+
+//Clase para generar las operaciones y resolverlas
 public class Operations {
     
 	
@@ -22,18 +24,7 @@ public class Operations {
 		
 	}
 	
-	public String getOperation() {
-        return operation;
-    }
-	
-	 public void setOperation(String operation) {
-		 this.operation = operation;
-	  }
-
-	 public void setResult(double result) {
-	        this.resultado = result;
-	  }
-	
+	//Resuelve las operaciones y regresa un objeto de tipo Operations
 	public static Operations resultOperation(Operations op) {
 		double result;
 		char[] operations=stringToChar(op.getOperation());
@@ -43,11 +34,13 @@ public class Operations {
 		
 		char operator=operations[1];
 		
+		//se valida si es entre 0
 		if(n2==0 && operator=='/') {
 			op.setResult(Double.NaN);
 			return op;
 		}
 		
+		//Resuelve la operacion
 		switch(operator) {
 			case '+':
 				result=n1+n2;
@@ -71,7 +64,7 @@ public class Operations {
 		return op;
 	}
 
-	//The numbers to evaluate the operation
+	//Los numeros para evaluar las operaciones
 	public int[] getRandomNumbers() {
 		// TODO Auto-generated method stub
 		int[] arr = new int[2];
@@ -81,7 +74,7 @@ public class Operations {
 		return arr;
 	}
 
-	//Generates the operation (+,-,*,/)
+	//Genera la operacion (+,-,*,/)
 	public String getRandomOperation() {
 		// TODO Auto-generated method stub
 		int ran = rand.nextInt(4);
@@ -103,7 +96,7 @@ public class Operations {
 		return op;
 	}
 
-	//This gives the operation a Scheme Format (+ a b)
+	//Asigna el formato como en Scheme (+ a b)
 	public String getFormatOperation(int[] arreglo, String operacionRandom) {
 		// TODO Auto-generated method stub
 		String format="("+operacionRandom+" "+arreglo[0]+" "+arreglo[1]+")";
@@ -147,6 +140,9 @@ public class Operations {
         return resultado;
     }
 
+	 public void setResult(double result) {
+	        this.resultado = result;
+	  }
 
     public int getCounter() {
         return cont;
@@ -155,6 +151,16 @@ public class Operations {
     public void setCounter(int counter) {
         this.cont = counter;
     }
+	
+		public String getOperation() {
+        return operation;
+    }
+	
+	 public void setOperation(String operation) {
+		 this.operation = operation;
+	  }
+
+	
 
 
 
