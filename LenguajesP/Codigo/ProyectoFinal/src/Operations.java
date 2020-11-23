@@ -38,8 +38,8 @@ public class Operations {
 		double result;
 		char[] operations=stringToChar(op.getOperation());
 		
-		double n1=Integer.parseInt(String.valueOf(operations[2]));
-		double n2=Integer.parseInt(String.valueOf(operations[3]));
+		double n1=Integer.parseInt(String.valueOf(operations[3]));
+		double n2=Integer.parseInt(String.valueOf(operations[5]));
 		
 		char operator=operations[1];
 		
@@ -106,7 +106,7 @@ public class Operations {
 	//This gives the operation a Scheme Format (+ a b)
 	public String getFormatOperation(int[] arreglo, String operacionRandom) {
 		// TODO Auto-generated method stub
-		String format="("+operacionRandom+arreglo[0]+arreglo[1]+")";
+		String format="("+operacionRandom+" "+arreglo[0]+" "+arreglo[1]+")";
 		return format;
 	}
 	

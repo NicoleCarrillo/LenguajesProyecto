@@ -22,25 +22,6 @@ public class Producer extends Thread {
     public void run() {
         System.out.println("Running Producer...");
         
-        //METODO PROFE 
-        
-        //String products = "AEIOU";
-        //Random r = new Random(System.currentTimeMillis());
-        //char product;
-        
-//        for(int i=0 ; i<5 ; i++) {
-//            product = products.charAt(r.nextInt(5));
-//            this.buffer.produce(product);
-//            //System.out.println("Producer produced: " + product);
-//            Buffer.print("Producer produced: " + product);
-//            
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException ex) {
-//                Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-        
         while(this.ejecucion) {
         	
         	Operations objetoScheme = new Operations(rangoMayor,rangoMenor);
@@ -49,9 +30,15 @@ public class Producer extends Thread {
         	String formatOperation = objetoScheme.getFormatOperation(arreglo,operacionRandom);
         	objetoScheme.setOperation(formatOperation);
         	
-        	//PASAR formatOperation AL BUFFER 
-        	
-        	//TRY CATCH DEL BUFFER 
+        	//pending to delete
+        	this.buffer.produce(objetoScheme);
+            Buffer.print("Producer produced " + "ID -> " + objetoScheme.getID() + " Operation -> " + objetoScheme.getOperation());
+
+            try {
+                Thread.sleep(this.buffer.time);
+            } catch (InterruptedException ex) {
+                System.out.println("ERROR AT PRODUCER " + ex);
+            }
         	
         }
         

@@ -41,7 +41,7 @@ public class GUIFrame extends javax.swing.JFrame {
     	 tamBuffer = 0;
     	 rangoMenor = 0;
     	 rangoMayor = 0;
-    	 objeto=new PC();
+    	 objeto=new PC(totalProductor, totalConsumidor);
         initComponents();
     }
 
@@ -106,11 +106,11 @@ public class GUIFrame extends javax.swing.JFrame {
         jButton1.setText(" INICIAR");
         jButton2.setText("TERMINAR");
         
-        
+        //Button stop
         jButton2.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
-        		//objeto.stopAllThreads();
+        		objeto.stopAllThreads();
            	 	JOptionPane.showMessageDialog(null,"PROCESO FINALIZADO CON EXITO", "INFO", JOptionPane.INFORMATION_MESSAGE); 
            	 	jSpinner1.setValue((Integer) 0);
            	 	jSpinner2.setValue((Integer) 0);
@@ -122,6 +122,7 @@ public class GUIFrame extends javax.swing.JFrame {
         	}
     	});
         
+        //Button init
         jButton1.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
@@ -208,8 +209,8 @@ public class GUIFrame extends javax.swing.JFrame {
         		System.out.println(rangoMenor);
         		System.out.println(rangoMayor);
         		
-        		//objeto = new PC(totalProductor, totalProductor);
-               // objeto.initProcess(tamBuffer, 1000, rangoMenor, rangoMayor, jProgressBar1, jSpinner4);
+        		objeto = new PC(totalProductor, totalConsumidor);
+        		objeto.initProcess(tamBuffer, 1000, rangoMenor, rangoMayor, jProgressBar1, jSpinner4);
                 
                 jTable1.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, new String[] {"ID", "Operación"}));
                 jTable2.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, new String[] {"ID", "OP", "Res"}));
@@ -343,7 +344,7 @@ public class GUIFrame extends javax.swing.JFrame {
 
         jLabel8.setText("Tareas realizadas");
 
-        jProgressBar1.setValue(10);
+        jProgressBar1.setValue(0);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
