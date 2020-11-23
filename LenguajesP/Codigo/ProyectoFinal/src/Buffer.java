@@ -1,55 +1,71 @@
-
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Buffer {
     
-    private String[] buffer; //array list   ---- validaciones 
-    private int pos;
+    private Operations [] buffer;
+    static int contConsumer, contProducer;
+    public int bufferSize, time;
+    static int id, count = 1;
+    static Random random = new Random();
     
-    Buffer() {
-    	this.buffer=new String[10];
-    	this.pos=0;
-        for(int x=0;x<10;x++) {
-        	buffer[x]="0";
-        }
+    Buffer(int maxSize, int maxTime) {
+        this.buffer = new Operations [maxSize];      
+        this.bufferSize = maxSize;
+        this.time = maxTime;
     }
-    
-    synchronized char consume() {
-        char product = 0;
-        
-        if(this.buffer[pos] == "0") {
+
+    synchronized Operations consume() {
+        Operations product = null;
+        contConsumer = getRandomNumber(0, this.buffer.length);
+
+        while (this.buffer[contConsumer] == null) {
             try {
-                wait(1000);
+                wait(this.time);
+                contConsumer = getRandomNumber(0, this.buffer.length);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        product = this.buffer[pos].charAt(0);
-        this.buffer[pos] = "0";
-        pos--;
-        notify();
         
+        product = this.buffer[contConsumer];
+        this.buffer[contConsumer] = null;
+        count--;
+        GUIFrame.removeTasks(product.operation);
+        PC.setValue((int) Math.round((count * 100)/this.bufferSize), id);
+        notifyAll();
         return product;
-    }
+        
+        }
     
-    synchronized void produce(char product) {
-        if(this.buffer[pos] != "0") {
+    synchronized void produce(Operations product) {
+        contProducer = getRandomNumber(0, this.buffer.length);
+        while(this.buffer[contProducer] != null) {
             try {
-                wait(1000);
+                wait(this.time);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        this.buffer[pos] = String.valueOf(product);
-        pos++;
-        notify();
+        
+        this.buffer[contProducer] = product;
+        product.setID(id);
+        id++;
+        count++;
+        GUIFrame.tableToDo(product.ID, product.operation);
+        notifyAll();
     }
     
-    static int count = 1;
     synchronized static void print(String string) {
-        System.out.print(count++ + " ");
         System.out.println(string);
     }
+
+    synchronized Operations [] genBufferArray (int size){
+        return this.buffer;
+    }
     
+    public static int getRandomNumber(int min, int max){
+        return random.nextInt(max - min) + min;
+    }
 }
