@@ -17,27 +17,29 @@ import java.awt.Color;
  */
 @SuppressWarnings("serial")
 
+
+
 public class GUIFrame extends javax.swing.JFrame {
-    
-    int totalProductor;
-    int totalConsumidor;
-    int tiempoProductor;
-    int tiempoConsumidor;
-    int tamBuffer;
-    int rangoMenor;
-    int rangoMayor;
-    PC objeto;
+	
+	int totalProductor;
+	int totalConsumidor;
+	int tiempoProductor;
+	int tiempoConsumidor;
+	int tamBuffer;
+	int rangoMenor;
+	int rangoMayor;
+	PC objeto;
 
     
     public GUIFrame() {
-         totalProductor = 0;
-         totalConsumidor = 0;
-         tiempoProductor = 0;
-         tiempoConsumidor = 0;
-         tamBuffer = 0;
-         rangoMenor = 0;
-         rangoMayor = 0;
-         objeto=new PC();
+    	 totalProductor = 0;
+    	 totalConsumidor = 0;
+    	 tiempoProductor = 0;
+    	 tiempoConsumidor = 0;
+    	 tamBuffer = 0;
+    	 rangoMenor = 0;
+    	 rangoMayor = 0;
+    	 objeto=new PC();
         initComponents();
     }
 
@@ -73,99 +75,117 @@ public class GUIFrame extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton1.setText(" INICIAR");
         jButton2.setText("TERMINAR");
+        
+        
+        jButton2.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		//objeto.stopAllThreads();
+           	 	JOptionPane.showMessageDialog(null,"PROCESO FINALIZADO CON EXITO", "INFO", JOptionPane.INFORMATION_MESSAGE); 
+           	 	jSpinner1.setValue((Integer) 0);
+           	 	jSpinner2.setValue((Integer) 0);
+           	 	jTextField1.setText("0");
+           	 	jTextField2.setText("0");
+           	 	jTextField3.setText("0");
+           	 	jTextField4.setText("0");
+           	 	jSpinner3.setValue((Integer) 0);
+        	}
+    	});
+        
         jButton1.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-//              Buffer buffer = new Buffer();
-//              Producer producer = new Producer(buffer);
-//              producer.start();
-//              Consumer consumer = new Consumer(buffer);
-//              consumer.start();
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		
+        		totalProductor = (Integer)jSpinner1.getValue();
+        		if(totalProductor <= 0 || totalProductor > 10){
+        			JOptionPane.showMessageDialog(null,"El número de productores debe estar en el rango 1-10", "ERROR", JOptionPane.ERROR_MESSAGE);
+        			return;
+        		}
+        	
+        		
+        		totalConsumidor = (Integer)jSpinner2.getValue();
+        		if(totalConsumidor <= 0 || totalConsumidor > 10){
+        			JOptionPane.showMessageDialog(null,"El número de consumidores debe estar en el rango 1-10", "ERROR", JOptionPane.ERROR_MESSAGE);
+        			return;
+        		}
+        	
+        		String temp1 = jTextField1.getText();
+        		if(temp1.equals("")) {
+        			JOptionPane.showMessageDialog(null,"Faltan argumentos en campo Tiempo Productor ", "ERROR", JOptionPane.ERROR_MESSAGE);
+        			return;
+        		}else {
+        			tiempoProductor =Integer.parseInt(temp1);
+            		if(tiempoProductor < 0 || tiempoProductor > 10000){
+            			JOptionPane.showMessageDialog(null,"Tiempo de espera para productor antes de su siguiente ciclo debe estar en el rango 0 ms a 10,000 ms", "ERROR", JOptionPane.ERROR_MESSAGE);
+            			return;
+            		}
+        		}
+        	
+        		String temp2 = jTextField2.getText();
+        		if(temp2.equals("")) {
+        			JOptionPane.showMessageDialog(null,"Faltan argumentos en campo Tiempo Consumidor ", "ERROR", JOptionPane.ERROR_MESSAGE);
+        			return;
+        		}else {
+        			tiempoConsumidor =Integer.parseInt(temp2);
+            		if(tiempoConsumidor < 0 || tiempoConsumidor > 10000){
+            			JOptionPane.showMessageDialog(null,"Tiempo de espera para consumidor antes de su siguiente ciclo debe estar en el rango 0 ms a 10,000 ms", "ERROR", JOptionPane.ERROR_MESSAGE);
+            			return;
+            		}
+        		}
+        		
+        		String temp3 = jTextField3.getText();
+        		if(temp3.equals("")) {
+        			JOptionPane.showMessageDialog(null,"Faltan argumentos en campo Buffer ", "ERROR", JOptionPane.ERROR_MESSAGE);
+        			return;
+        		}else {
+        			tamBuffer =Integer.parseInt(temp3);
+            		if(tamBuffer <= 0 || tamBuffer > 100){
+            			JOptionPane.showMessageDialog(null,"El tamaño del buffer debe ser mayor a 0 - 100", "ERROR", JOptionPane.ERROR_MESSAGE);
+            			return;
+            		}
+        		}
+        		
+        	
+        		String temp4 = jTextField4.getText();
+        		if(temp4.equals("")) {
+        			JOptionPane.showMessageDialog(null,"Faltan argumentos en campo Rango Menor ", "ERROR", JOptionPane.ERROR_MESSAGE);
+        			return;
+        		}else {
+        			rangoMenor =Integer.parseInt(temp4);
+            		if(rangoMenor < 0 || rangoMenor > 10){
+            			JOptionPane.showMessageDialog(null,"Rango de valores para las operaciones en scheme: [0, 9]", "ERROR", JOptionPane.ERROR_MESSAGE);
+            			return;
+            		}
+        		}
+        		
+        		
+        		rangoMayor = (Integer)jSpinner3.getValue();
+        		if(rangoMayor < 0 || rangoMayor > 10){
+        			JOptionPane.showMessageDialog(null,"Rango de valores para las operaciones en scheme: [0, 9]", "ERROR", JOptionPane.ERROR_MESSAGE);
+        			return;
+        		}
+        		
+        		if(rangoMenor > rangoMayor) {
+        			JOptionPane.showMessageDialog(null,"Rangos invertidos, revisar inputs", "WARNING", JOptionPane.INFORMATION_MESSAGE);
+        			return;
+        		}
+        		
+        		System.out.println(totalProductor);
+        		System.out.println(totalProductor);
+        		System.out.println(tiempoProductor);
+        		System.out.println(tiempoConsumidor);
+        		System.out.println(tamBuffer);
+        		System.out.println(rangoMenor);
+        		System.out.println(rangoMayor);
+        		
+        		//objeto = new PC(totalProductor, totalProductor);
+               // objeto.initProcess(tamBuffer, 1000, rangoMenor, rangoMayor, jProgressBar1, jSpinner4);
                 
-
-                totalProductor = (Integer)jSpinner1.getValue();
-                if(totalProductor <= 0 || totalProductor > 10){
-                    JOptionPane.showMessageDialog(null,"El número de productores debe estar en el rango 1-10", "ERROR", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            
+                jTable1.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, new String[] {"ID", "Operación"}));
+                jTable2.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, new String[] {"ID", "OP", "Res"}));
                 
-                totalConsumidor = (Integer)jSpinner2.getValue();
-                if(totalConsumidor <= 0 || totalConsumidor > 10){
-                    JOptionPane.showMessageDialog(null,"El número de consumidores debe estar en el rango 1-10", "ERROR", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            
-                String temp1 = jTextField1.getText();
-                if(temp1.equals("")) {
-                    JOptionPane.showMessageDialog(null,"Faltan argumentos en campo Tiempo Productor ", "ERROR", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }else {
-                    tiempoProductor =Integer.parseInt(temp1);
-                    if(tiempoProductor < 0 || tiempoProductor > 10000){
-                        JOptionPane.showMessageDialog(null,"Tiempo de espera para productor antes de su siguiente ciclo debe estar en el rango 0 ms a 10,000 ms", "ERROR", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                }
-            
-                String temp2 = jTextField2.getText();
-                if(temp2.equals("")) {
-                    JOptionPane.showMessageDialog(null,"Faltan argumentos en campo Tiempo Consumidor ", "ERROR", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }else {
-                    tiempoConsumidor =Integer.parseInt(temp2);
-                    if(tiempoConsumidor < 0 || tiempoConsumidor > 10000){
-                        JOptionPane.showMessageDialog(null,"Tiempo de espera para consumidor antes de su siguiente ciclo debe estar en el rango 0 ms a 10,000 ms", "ERROR", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                }
-                
-                String temp3 = jTextField3.getText();
-                if(temp3.equals("")) {
-                    JOptionPane.showMessageDialog(null,"Faltan argumentos en campo Buffer ", "ERROR", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }else {
-                    tamBuffer =Integer.parseInt(temp3);
-                    if(tamBuffer <= 0 || tamBuffer >= 10){
-                        JOptionPane.showMessageDialog(null,"El tamaño del buffer debe ser mayor a 0 - 100", "ERROR", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                }
-                
-            
-                String temp4 = jTextField4.getText();
-                if(temp4.equals("")) {
-                    JOptionPane.showMessageDialog(null,"Faltan argumentos en campo Rango Menor ", "ERROR", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }else {
-                    rangoMenor =Integer.parseInt(temp4);
-                    if(rangoMenor < 0 || rangoMenor > 10){
-                        JOptionPane.showMessageDialog(null,"Rango de valores para las operaciones en scheme: [0, 9]", "ERROR", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                }
-                
-                
-                rangoMayor = (Integer)jSpinner3.getValue();
-                if(rangoMayor < 0 || rangoMayor > 10){
-                    JOptionPane.showMessageDialog(null,"Rango de valores para las operaciones en scheme: [0, 9]", "ERROR", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                
-                if(rangoMenor > rangoMayor) {
-                    JOptionPane.showMessageDialog(null,"Rangos invertidos, revisar inputs", "WARNING", JOptionPane.INFORMATION_MESSAGE);
-                    return;
-                }
-                
-                System.out.println(totalProductor);
-                System.out.println(totalConsumidor);
-                System.out.println(tiempoProductor);
-                System.out.println(tiempoConsumidor);
-                System.out.println(tamBuffer);
-                System.out.println(rangoMenor);
-                System.out.println(rangoMayor);
-                
-            } 
+                JOptionPane.showMessageDialog(null,"PROCESO INICIALIZADO CON EXITO", "INFO", JOptionPane.INFORMATION_MESSAGE); 		
+        	} 
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -254,36 +274,46 @@ public class GUIFrame extends javax.swing.JFrame {
         jTabbedPane1.addTab("Configuración", jPanel2);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        		 new Object [][] {
+                 },
+                 new String [] {
+                     "ID", "Producto"
+                 }
+             ) {
+                 boolean[] canEdit = new boolean [] {
+                     true, false
+                 };
+
+                 public boolean isCellEditable(int rowIndex, int columnIndex) {
+                     return canEdit [columnIndex];
+                 }
+             });
         jScrollPane1.setViewportView(jTable1);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        		 new Object [][] {
+
+                 },
+                 new String [] {
+                     "ID", "Operacion", "Resultado"
+                 }
+             ) {
+                 boolean[] canEdit = new boolean [] {
+                     false, true, false
+                 };
+
+                 public boolean isCellEditable(int rowIndex, int columnIndex) {
+                     return canEdit [columnIndex];
+                 }
+             });
+        
         jScrollPane2.setViewportView(jTable2);
 
         jLabel7.setText("Tareas por hacer");
 
         jLabel8.setText("Tareas realizadas");
 
-        jProgressBar1.setValue(50);
+        jProgressBar1.setValue(10);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -332,30 +362,30 @@ public class GUIFrame extends javax.swing.JFrame {
         
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         layout.setHorizontalGroup(
-            layout.createParallelGroup(Alignment.TRAILING)
-                .addGroup(Alignment.LEADING, layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(layout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(6)
-                            .addComponent(jButton2, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
-                            .addGap(121)
-                            .addComponent(jButton1, GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                            .addGap(49))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jTabbedPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addContainerGap(39, Short.MAX_VALUE))))
+        	layout.createParallelGroup(Alignment.TRAILING)
+        		.addGroup(Alignment.LEADING, layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(layout.createSequentialGroup()
+        					.addGap(6)
+        					.addComponent(jButton2, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
+        					.addGap(121)
+        					.addComponent(jButton1, GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+        					.addGap(49))
+        				.addGroup(layout.createSequentialGroup()
+        					.addComponent(jTabbedPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        					.addContainerGap(39, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jTabbedPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addGroup(layout.createParallelGroup(Alignment.BASELINE)
-                        .addComponent(jButton1, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
-                    .addGap(23))
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addComponent(jTabbedPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jButton1, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(jButton2, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
+        			.addGap(23))
         );
         getContentPane().setLayout(layout);
 
