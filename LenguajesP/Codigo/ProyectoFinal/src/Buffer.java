@@ -53,7 +53,7 @@ public class Buffer {
         product.setID(id);
         id++;
         count++;
-        GUIFrame.tableToDo(product.ID, product.operation);
+        GUIFrame.nextTable(product.ID, product.operation);
         notifyAll();
     }
     

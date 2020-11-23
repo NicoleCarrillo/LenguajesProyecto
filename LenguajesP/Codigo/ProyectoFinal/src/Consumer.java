@@ -21,7 +21,7 @@ public class Consumer extends Thread {
             if(product != null){
                 Operations.resultOperation(product);
                 Buffer.print("Consumer Consumed ID -> " + product.getID() + " Result -> " + product.getResult());
-                GUIFrame.tableDone(product.getID(), product.getOperation(), product.getResult());
+                GUIFrame.tableComplete(product.getID(), product.getOperation(), product.getResult());
             }
             else{
 

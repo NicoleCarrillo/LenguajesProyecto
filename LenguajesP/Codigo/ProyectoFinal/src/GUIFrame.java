@@ -4,6 +4,8 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JOptionPane;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.Color;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -43,6 +45,34 @@ public class GUIFrame extends javax.swing.JFrame {
         initComponents();
     }
 
+    public static void removeTasks(String exp){
+        DefaultTableModel table1 =  (DefaultTableModel) GUIFrame.jTable1.getModel();  
+         for(int i=table1.getRowCount()-1;i>=0;i--){
+            if(((String)table1.getValueAt(i, 1)).equals(exp)){
+                table1.removeRow(i);
+                break;
+            }
+        }
+    }
+    
+    public static void nextTable(int id, String exp){
+        DefaultTableModel table1 = (DefaultTableModel) GUIFrame.jTable1.getModel();
+        Object row [] = new Object [2];
+        row [0] = id;
+        row [1] = exp;
+        table1.addRow(row);
+        
+    }
+
+    public static void tableComplete(int id, String exp, double value){
+        DefaultTableModel table2 =  (DefaultTableModel) GUIFrame.jTable2.getModel();
+        Object row[] = new Object[3];
+        row[0] = id;
+        row[1] = exp;
+        row[2] = value;
+        table2.addRow(row);
+        
+    }
    
     private void initComponents() {
 
@@ -441,8 +471,8 @@ public class GUIFrame extends javax.swing.JFrame {
     private javax.swing.JSpinner jSpinner3;
     private javax.swing.JSpinner jSpinner4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private static javax.swing.JTable jTable1;
+    private static javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;

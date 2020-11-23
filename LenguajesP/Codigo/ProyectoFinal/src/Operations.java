@@ -1,7 +1,9 @@
-import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.Random;
 
-//This class is to generate the math operations and gives the Scheme format
 public class Operations {
+    
 	
 	public int ID,
 				cont=0,
@@ -17,6 +19,7 @@ public class Operations {
 		this.resultado=0;
 		this.rangoMinimo=min;
 		this.rangoMaximo=max;
+		
 	}
 	
 	public String getOperation() {
@@ -32,11 +35,11 @@ public class Operations {
 	  }
 	
 	public static Operations resultOperation(Operations op) {
-		int result;
+		double result;
 		char[] operations=stringToChar(op.getOperation());
 		
-		int n1=Integer.parseInt(String.valueOf(operations[2]));
-		int n2=Integer.parseInt(String.valueOf(operations[3]));
+		double n1=Integer.parseInt(String.valueOf(operations[2]));
+		double n2=Integer.parseInt(String.valueOf(operations[3]));
 		
 		char operator=operations[1];
 		
@@ -71,7 +74,7 @@ public class Operations {
 	//The numbers to evaluate the operation
 	public int[] getRandomNumbers() {
 		// TODO Auto-generated method stub
-		int[] arr = null;
+		int[] arr = new int[2];
 		arr[0]=rand.nextInt(this.rangoMaximo - this.rangoMinimo) + this.rangoMinimo;
 		arr[1]=rand.nextInt(this.rangoMaximo - this.rangoMinimo) + this.rangoMinimo;
 		
@@ -81,7 +84,7 @@ public class Operations {
 	//Generates the operation (+,-,*,/)
 	public String getRandomOperation() {
 		// TODO Auto-generated method stub
-		int ran=rand.nextInt(4);
+		int ran = rand.nextInt(4);
 		String op = null;
 		switch(ran) {
 		case 0:
@@ -117,6 +120,42 @@ public class Operations {
 
         return ch;
     } 
+    
+    public int genID (){
+
+        cont = getRandomNumber(0, 1000);
+        return cont;
+
+    }
+
+    /* GETTERS & SETTERS */
+
+    private int getRandomNumber(int rangoMinimo, int rangoMayor) {
+    	 return rand.nextInt(rangoMayor - rangoMinimo) + rangoMinimo;
+	}
+
+	public int getID() {
+        return ID;
+    }
+
+    public void setID(int iD) {
+        ID = iD;
+    }
+
+
+    public double getResult() {
+        return resultado;
+    }
+
+
+    public int getCounter() {
+        return cont;
+    }
+
+    public void setCounter(int counter) {
+        this.cont = counter;
+    }
+
 
 
 }
