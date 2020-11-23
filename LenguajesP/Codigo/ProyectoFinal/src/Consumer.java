@@ -14,7 +14,9 @@ public class Consumer extends Thread {
     public void run() {
         System.out.println("Running Consumer...");
         Operations product;
-        
+       
+        //MIENTRAS EXISTA ESPACIO RESUELVE LAS OPERACIONES Y LAS MANDA AL BUFFER 
+        //Y LA GUI
         while(this.ejecucion) {
             product = this.buffer.consume();
 
@@ -37,6 +39,7 @@ public class Consumer extends Thread {
         }
     }
     
+    //PARAR EL HILO DE CONSUMER
     public void stopThread(){
         this.ejecucion = false;
     }
