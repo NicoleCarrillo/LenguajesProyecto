@@ -217,7 +217,7 @@ public class GUIFrame extends javax.swing.JFrame {
         		
 			// INICIALIZA EL PRODUCTOR-CONSUMIDOR -> ORQUESTADOR DEL PROYECTO 
         		objeto = new PC(totalProductor, totalConsumidor);
-        		objeto.initProcess(tamBuffer, 1000, rangoMenor, rangoMayor, jProgressBar1, jSpinner4);
+        		objeto.initProcess(tamBuffer, Integer.parseInt(temp1),Integer.parseInt(temp2), rangoMenor, rangoMayor, jProgressBar1, jSpinner4);
                 
                 jTable1.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, new String[] {"ID", "Operación"}));
                 jTable2.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, new String[] {"ID", "OP", "Res"}));

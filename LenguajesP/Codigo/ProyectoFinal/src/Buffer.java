@@ -6,14 +6,15 @@ public class Buffer {
     
     private Operations [] buffer;
     static int contConsumer, contProducer; //
-    public int bufferSize, time; //
+    public int bufferSize, time1,time2; //
     static int id, count = 1;
     static Random random = new Random();
     
-    Buffer(int maxSize, int maxTime) {
+    Buffer(int maxSize, int maxTime1,int maxTime2) {
         this.buffer = new Operations [maxSize];      
         this.bufferSize = maxSize;
-        this.time = maxTime;
+        this.time1 = maxTime1;
+        this.time2 = maxTime2;
     }
 
         //PARA AGARRAR LAS OPERACIONES QUE PRODUJO PRODUCER
@@ -25,7 +26,7 @@ public class Buffer {
         //SI EL BUFFER ESTA VACIO VA A ESPERAR A QUE PRODUZCA
         while (this.buffer[contConsumer] == null) {
             try {
-                wait(this.time);
+                wait(this.time2);
                 contConsumer = getRandomNumber(0, this.buffer.length);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
@@ -48,7 +49,7 @@ public class Buffer {
         contProducer = getRandomNumber(0, this.buffer.length);
         while(this.buffer[contProducer] != null) {
             try {
-                wait(this.time);
+                wait(this.time1);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }

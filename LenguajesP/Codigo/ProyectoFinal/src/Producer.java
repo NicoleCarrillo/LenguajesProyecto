@@ -21,7 +21,6 @@ public class Producer extends Thread {
     @Override
     public void run() {
         System.out.println("Running Producer...");
-        
         while(this.ejecucion) {
         	
 		// CREAMOS LA OPERACION -> NUMEROS RANDOM, OPERACION RANDOM Y LE DAMOS FORMATO DE SCHEME 
@@ -31,12 +30,14 @@ public class Producer extends Thread {
         	String formatOperation = objetoScheme.getFormatOperation(arreglo,operacionRandom);
         	objetoScheme.setOperation(formatOperation);
         	
+        	
         	//SE PRODUCEN LAS OPERACIONES -> SE MANDAN AL BUFFER 
         	this.buffer.produce(objetoScheme);
             	Buffer.print("Producer produced " + "ID -> " + objetoScheme.getID() + " Operation -> " + objetoScheme.getOperation());
 
+            	
             try {
-                Thread.sleep(this.buffer.time);
+                Thread.sleep(this.buffer.time1);
             } catch (InterruptedException ex) {
                 System.out.println("ERROR AT PRODUCER " + ex);
             }

@@ -28,7 +28,7 @@ public class Consumer extends Thread {
             else{
 
                 try {
-                    Thread.sleep(this.buffer.time);
+                    Thread.sleep(this.buffer.time2);
                     
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);

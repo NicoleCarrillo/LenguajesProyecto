@@ -21,9 +21,9 @@ public class PC {
     }
 
     //Inicializa los valores de la GUI -- Mandado a llamar por la GUI
-    public void initProcess(int bufferSize, int time, int rangoMenor, int rangoMayor, javax.swing.JProgressBar JPBar, javax.swing.JSpinner jSpinner4) {
+    public void initProcess(int bufferSize, int time1,int time2, int rangoMenor, int rangoMayor, javax.swing.JProgressBar JPBar, javax.swing.JSpinner jSpinner4) {
 
-        Buffer buffer = new Buffer(bufferSize, time);
+        Buffer buffer = new Buffer(bufferSize, time1,time2);
         JProgressBarS = JPBar;
         JProgressBarS.setMaximum(100);
         JProgressBarS.setMinimum(0);
