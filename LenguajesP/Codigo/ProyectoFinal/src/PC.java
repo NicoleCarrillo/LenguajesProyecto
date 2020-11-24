@@ -3,6 +3,8 @@ import javax.swing.JProgressBar;
 import javax.swing.JSpinner;
 
 import javax.swing.SwingUtilities;
+//Clase principal 
+//Producer-Consumer
 
 public class PC {
 
@@ -18,6 +20,7 @@ public class PC {
         this.consumers = new Consumer[consumerSize];
     }
 
+    //Inicializa los valores de la GUI -- Mandado a llamar por la GUI
     public void initProcess(int bufferSize, int time, int rangoMenor, int rangoMayor, javax.swing.JProgressBar JPBar, javax.swing.JSpinner jSpinner4) {
 
         Buffer buffer = new Buffer(bufferSize, time);
@@ -26,12 +29,14 @@ public class PC {
         JProgressBarS.setMinimum(0);
 
         jSpinner = jSpinner4;
-
+        
+        //Crea productores
         for (int i = 0; i < this.producers.length; i++) {
             this.producers[i] = new Producer(buffer, rangoMenor, rangoMayor);
             this.producers[i].start();
         }
 
+        //Crea consumidores
         for (int j = 0; j < this.consumers.length; j++) {
             this.consumers[j] = new Consumer(buffer);
             this.consumers[j].start();
@@ -39,6 +44,7 @@ public class PC {
     }
 
     
+    //asigna los valores de la progress bar
     public static void setValue(final int progress, final int counter){
         SwingUtilities.invokeLater(new Runnable(){
             @Override
@@ -50,6 +56,7 @@ public class PC {
         });
     }
 
+    // Detiene todos los procesos
     public void stopAllThreads (){
 
         for (int i = 0; i < this.producers.length; i++) {
