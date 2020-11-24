@@ -5,8 +5,8 @@ import java.util.logging.Logger;
 public class Buffer {
     
     private Operations [] buffer;
-    static int contConsumer, contProducer;
-    public int bufferSize, time;
+    static int contConsumer, contProducer; //
+    public int bufferSize, time; //
     static int id, count = 1;
     static Random random = new Random();
     
@@ -16,10 +16,13 @@ public class Buffer {
         this.time = maxTime;
     }
 
+        //PARA AGARRAR LAS OPERACIONES QUE PRODUJO PRODUCER
     synchronized Operations consume() {
         Operations product = null;
         contConsumer = getRandomNumber(0, this.buffer.length);
 
+        
+        //SI EL BUFFER ESTA VACIO VA A ESPERAR A QUE PRODUZCA
         while (this.buffer[contConsumer] == null) {
             try {
                 wait(this.time);
@@ -29,16 +32,18 @@ public class Buffer {
             }
         }
         
+        
         product = this.buffer[contConsumer];
         this.buffer[contConsumer] = null;
         count--;
         GUIFrame.removeTasks(product.operation);
-        PC.setValue((int) Math.round((count * 100)/this.bufferSize), id);
+        PC.setValue((int) Math.round((count * 100)/this.bufferSize), id); // BARRA DEL PROGRESO CUANDO VAYA PROCESANDO
         notifyAll();
         return product;
         
         }
     
+        //PRODUCE OPERACIONES SI ESTA VACIO
     synchronized void produce(Operations product) {
         contProducer = getRandomNumber(0, this.buffer.length);
         while(this.buffer[contProducer] != null) {
@@ -53,7 +58,7 @@ public class Buffer {
         product.setID(id);
         id++;
         count++;
-        GUIFrame.nextTable(product.ID, product.operation);
+        GUIFrame.nextTable(product.ID, product.operation); //AGREGA A LA COLA DE LA TABLA DE OPERACIONES PARA RESOLVERLO
         notifyAll();
     }
     
